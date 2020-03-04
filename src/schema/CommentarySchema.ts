@@ -56,6 +56,18 @@ export class SuccessResponseTicket {
   code?: string;
 }
 
+@ObjectType()
+export class SuccessResponseTicketSingle {
+  @Field(type => String)
+  msg?: string;
+
+  @Field(type => String)
+  token?: string;
+
+  @Field(type => String)
+  code?: string;
+}
+
 @InputType()
 export class findInput {
   @Field(type => Int, { nullable: true })
@@ -80,11 +92,11 @@ export class Commentary {
   commentary: string;
 
   @Type(() => User)
-  @Field({ nullable: true })
+  @Field()
   User: User;
 
   @Type(() => Challenge)
-  @Field({ nullable: true })
+  @Field()
   Challenge: Challenge;
 
   @Field(type => String, { nullable: true })

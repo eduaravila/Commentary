@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-
+import { v4 } from "uuid";
 import { encrypt, decrypt } from "./crypt";
 
 class Token {
@@ -26,7 +26,7 @@ class Token {
             nuevo = { ...nuevo, [i]: decrypt(object_data[i]) };
           }
         });
-        return Promise.resolve(nuevo);
+        return Promise.resolve({ ...object_data, ...nuevo });
       } catch (error) {
         Promise.reject(error);
       }
@@ -56,6 +56,7 @@ class Token {
         this.token = await jwt.sign(this.data, process.env.SECRET_TICKET, {
           algorithm: "HS256",
           expiresIn,
+          keyid: v4(),
           issuer: process.env.APP_NAME,
           audience: "GENERAL"
         });

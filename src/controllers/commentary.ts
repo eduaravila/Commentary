@@ -49,6 +49,8 @@ export const addCommentary = async (
     });
     await ticketToken.create_token("1h");
 
+    console.log(ticketToken.token, newCommentary._id);
+
     return Promise.resolve({
       msg: `${newCommentary._id} succesfully created`,
       code: "200",

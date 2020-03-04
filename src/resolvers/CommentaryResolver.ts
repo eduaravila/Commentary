@@ -14,7 +14,8 @@ import {
   newCommentary,
   findInput,
   commentarytEditInfo,
-  SuccessResponseTicket
+  SuccessResponseTicket,
+  SuccessResponseTicketSingle
 } from "../schema/CommentarySchema";
 
 import {
@@ -34,7 +35,7 @@ export class CommentaryResolver {
     return [...msg];
   }
 
-  @Mutation(returns => SuccessResponseTicket)
+  @Mutation(returns => SuccessResponseTicketSingle)
   async NewCommentary(
     @Arg("newCommentary", () => newCommentary) newCommentary: newCommentary,
     @Ctx() ctx: any
