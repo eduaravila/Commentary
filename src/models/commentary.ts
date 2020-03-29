@@ -6,8 +6,7 @@ import mongoose_delete from "mongoose-delete";
 
 const Commentary_schema: Schema = new mongoose.Schema({
   commentary: {
-    type: String,
-    required: true
+    type: String
   },
   User: {
     type: mongoose.Types.ObjectId

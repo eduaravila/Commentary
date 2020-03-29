@@ -1,7 +1,7 @@
 import moment from "moment";
 import mongose from "mongoose";
 import { ApolloError } from "apollo-server-express";
-
+import validator from "validator";
 import commentaryModel from "../models/commentary";
 import {
   findInput,
@@ -17,8 +17,10 @@ export const addCommentary = async (
 ) => {
   try {
     let token = ctx.req.headers.token;
-
-    let multiplier = 2;
+    let multiplier = 0;
+    if (commentary.trim().length > 0) {
+      multiplier = 2;
+    }
 
     let localToken = await Jwt.validateToken(
       token,
@@ -45,11 +47,10 @@ export const addCommentary = async (
     // * sets the reward for uploading files to the ecolote server
     let ticketToken = new jwtTicket({
       multiplier: multiplier.toString(),
-      userId: tokenData.userId
+      userId: tokenData.userId,
+      _id: newCommentary._id.toString()
     });
     await ticketToken.create_token("1h");
-
-    console.log(ticketToken.token, newCommentary._id);
 
     return Promise.resolve({
       msg: `${newCommentary._id} succesfully created`,

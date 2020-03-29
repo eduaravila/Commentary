@@ -9,6 +9,7 @@ import { Type } from "class-transformer";
 import mongoose from "mongoose";
 
 import commentary_model from "../models/commentary";
+import { MaxLength } from "class-validator";
 
 @SanitizerConstraint()
 export class toLowerCase implements SanitizerInterface {
@@ -114,7 +115,8 @@ export class Commentary {
 
 @InputType()
 export class newCommentary {
-  @Field(type => String)
+  @Field(type => String, { nullable: true })
+  @MaxLength(280)
   commentary: string;
 
   @Field(type => ID)
